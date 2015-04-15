@@ -26,5 +26,7 @@ for use with function blocks. You can access its current value with:
 or, if you're going to use it from within another node, use:
 `RED.settings.functionGlobalContext.frequencies[<node name>]`
 
+**Disclaimer:** Do not use this software to control nuclear reactors! (and ice-cream makers too!)
+
 This node is based on https://github.com/pgte/frequency-meter
 Kudos Due to Pedro Teixeira.

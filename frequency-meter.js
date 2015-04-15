@@ -21,7 +21,6 @@
 module.exports = function(RED) {
 	
 	var FM = require('frequency-meter');
-	
 	/**
 	* ====== FREQUENCY-METER ================
 	* Measures frequency of messages received 
@@ -29,7 +28,7 @@ module.exports = function(RED) {
 	* =======================================
 	*/
 	function FrequencyMeter(config) {
-		
+
 		RED.nodes.createNode(this, config);
 		// prepare the global context to store frequencies
 		if (!RED.settings.functionGlobalContext.hasOwnProperty('frequencies')) {
@@ -37,7 +36,7 @@ module.exports = function(RED) {
 		}
 		this.name = config.name;
 		RED.settings.functionGlobalContext.frequencies[this.name] = 0;
-		this.fm = FM(config.basefrequency);
+		this.fm = FM(config.interval);
 		var node = this;
 		
 		// what to do when a frequency measurement is available
@@ -47,7 +46,7 @@ module.exports = function(RED) {
 			// store it in the global array
 			RED.settings.functionGlobalContext.frequencies[node.name] = freq;
 			// update node status
-			this.status({fill:"green",shape:"ring",text: freq.toFixed(3)+" Hz")});
+			node.status({fill:"green",shape:"ring",text: freq.toFixed(3)+" Hz"});
 		});
 		// Yes its true: an incoming message just happened()
 		this.on("input", function(msg) {
@@ -58,5 +57,5 @@ module.exports = function(RED) {
 		});
 	}
 	//
-	RED.nodes.registerType("frequency-meter", FrequencyMeter);
-}
+	RED.nodes.registerType("frequency", FrequencyMeter);
+};

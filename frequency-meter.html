@@ -17,42 +17,47 @@
   limitations under the License.
   
 -->
-<script type="text/x-red" data-template-name="frequency-meter">
+<script type="text/x-red" data-template-name="frequency">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name"/>
     </div>
     <div class="form-row">
-        <label for="node-input-basefrequency"> Base frequency</label>
-        <select id="node-input-basefrequency" style="width:125px !important">
+        <label for="node-input-interval"> Calculation interval</label>
+        <select id="node-input-interval" style="width:125px !important">
           <option value="1000">1 second</option>
           <option value="5000">5 seconds</option>
+          <option value="10000">10 seconds</option>
           <option value="15000">15 seconds</option>
           <option value="30000">30 seconds</option>
+          <option value="45000">45 seconds</option>
           <option value="60000">1 minute</option>
           <option value="300000">5 minutes</option>
+          <option value="600000">10 minutes</option>
           <option value="900000">15 minutes</option>
           <option value="1800000">30 minutes</option>
+          <option value="2700000">45 minutes</option>
           <option value="3600000">1 hour</option>
         </select>
-    </div>
+    </div>    
 </script>
 
-<script type="text/x-red" data-help-name="frequency-meter">
-    <p>Use this node to measure the <b>frequency in Hz</b> of messages flowing through the node.<br/>
-    The calculated frequency, which is merely a derivation on time, is stored in the global context as it's calculated and emitted at preset intervals.
-       	<b>Calculation interval</b>: the time between frequency calculations, see also 'emit interval' https://www.npmjs.com/package/frequency-meter
-    	<br/>
+<script type="text/x-red" data-help-name="frequency">
+    <p>Use this node to measure the <b>frequency in Hz</b> of messages 
+    flowing through the node.<br/>
+    Produces a periodic frequency announcement on the output node, emitted at preset intervals.
+    The calculated frequency, is also stored in <b>functionsGlobalContext</b> object.<br/>
+    <b>Calculation interval</b>: the metafrequency (frequency of frequency calculations), see also <a href='https://www.npmjs.com/package/frequency-meter'>relevant documentation</a>
     </p>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('frequency-meter',{
-        category: 'analysis',
+    RED.nodes.registerType('frequency',{
+        category: 'analysis-function',
         color: '#ff9900',
         defaults: {
-            name:           {value:"freq1"},
-            basefrequency:  {value:"60000"}
+            name:      {value:"freq1"},
+            interval:  {value:"60000"}
         },
         inputs: 1,
         outputs: 1,
