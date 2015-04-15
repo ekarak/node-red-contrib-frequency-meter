@@ -1,0 +1,29 @@
+{
+  "name": "node-red-contrib-frequency-meter",
+  "version": "0.0.1",
+  "description": "A node that counts the frequency of messages passing through it",
+  "dependencies": {
+    "frequency-meter": "0.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ekarak/node-red-contrib-frequency-meter.git"
+  },
+  "author": "Elias Karakoulakis <elias.karakoulakis@gmail.com>",
+  "keywords": [
+    "node-red"
+  ],
+  "node-red": {
+    "nodes": {
+      "frequency-meter": "frequency-meter.js"
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/ekarak/node-red-contrib-frequency-meter/issues"
+  },
+  "main": "frequency-meter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "Apache-2.0"
+}
