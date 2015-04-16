@@ -11,6 +11,8 @@ You'll also get a nice status indication with the measured frequency
 (in Hz, rounded to 3 decimals) directly in the NodeRed interface, but 
 *you'll have to enable the display of node statuses first.*
 
+![frequency meter](https://github.com/ekarak/node-red-contrib-frequency-meter/raw/master/freq-measure.png "The simplest way to measure a flow")
+
 Just beware that these frequency messages are generated at *preset 
 intervals* and their generation is **not necessarily triggered by arriving messages**.
 
