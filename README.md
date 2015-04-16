@@ -12,7 +12,7 @@ You'll also get a nice status indication with the measured frequency
 *you'll have to enable the display of node statuses first.*
 
 Just beware that these frequency messages are generated at *preset 
-intervals* and their generation is **not triggered by arriving messages**.
+intervals* and their generation is **not necessarily triggered by arriving messages**.
 
 Therefore:
 
@@ -28,5 +28,7 @@ or, if you're going to use it from within another node, use:
 
 **Disclaimer:** Do not use this software to control nuclear reactors! (and ice-cream makers too!)
 
-This node is based on https://github.com/pgte/frequency-meter
-Kudos Due to Pedro Teixeira.
+Here's a demo flow:
+`[{"id":"88c4bf00.773b4","type":"debug","name":"","active":true,"console":false,"complete":false,"x":637,"y":244,"z":"4574009.fba8c","wires":[]}]`
+
+This node is based on https://github.com/pgte/frequency-meter - Huge respect to Pedro Teixeira.

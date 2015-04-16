@@ -20,14 +20,68 @@
 
 module.exports = function(RED) {
 	
-	var FM = require('frequency-meter');
+	var now = Date.now;
+	var EventEmitter = require('events').EventEmitter;
+	
+	function FrequencyMeter(samplingWindow, notificationInterval) {
+		
+		if (! samplingWindow) samplingWindow = 1000;
+		if (! notificationInterval) notificationInterval = 1000;
+		
+		var frequency = 0;
+		var events = [];
+		var timeout;
+		var ee = new EventEmitter();
+
+		// happened
+		ee.happened = function happened() {
+			events.push(now());
+			//console.log("happened, events.length=="+events.length);
+		};
+
+		/// end
+		ee.end = function end() {
+			unschedule();
+
+			ee.happened = function() {
+				throw new Error('ended');
+			};
+		};
+
+		schedule();
+
+		return ee;
+
+		//// ------ private methods (well, sort of)
+
+		function schedule() {
+			timeout = setInterval(function() {
+				// filter out old events
+				events = events.filter( function(x) {
+					return (x > now() - samplingWindow);
+				});
+
+				frequency = (1000 * events.length / samplingWindow);
+				//console.log("fire in the hole! freq="+frequency);
+				ee.emit('frequency', frequency);
+			}, notificationInterval);
+		}
+
+		function unschedule() {
+			if (timeout) {
+			  clearInterval(timeout);
+			  timeout = undefined;
+			}
+		}
+	}
+	
 	/**
 	* ====== FREQUENCY-METER ================
 	* Measures frequency of messages received 
 	* in its input connector
 	* =======================================
 	*/
-	function FrequencyMeter(config) {
+	function FrequencyMeterNode(config) {
 
 		RED.nodes.createNode(this, config);
 		// prepare the global context to store frequencies
@@ -36,7 +90,7 @@ module.exports = function(RED) {
 		}
 		this.name = config.name;
 		RED.settings.functionGlobalContext.frequencies[this.name] = 0;
-		this.fm = FM(config.interval);
+		this.fm = FrequencyMeter(config.interval, config.ntfyinterval);
 		var node = this;
 		
 		// what to do when a frequency measurement is available
@@ -57,5 +111,6 @@ module.exports = function(RED) {
 		});
 	}
 	//
-	RED.nodes.registerType("frequency", FrequencyMeter);
+	RED.nodes.registerType("frequency", FrequencyMeterNode);
+	
 };
