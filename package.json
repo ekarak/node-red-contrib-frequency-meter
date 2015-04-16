@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-frequency-meter",
   "version": "0.0.1",
-  "description": "A node that counts the frequency of messages passing through it",
+  "description": "A node that measures the frequency of messages fed into it",
   "dependencies": {  },
   "repository": {
     "type": "git",
