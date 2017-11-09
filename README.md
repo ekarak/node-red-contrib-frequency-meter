@@ -16,6 +16,8 @@ You'll also get a nice status indication with the measured frequency
 Just beware that these frequency messages are generated at *preset 
 intervals* and their generation is **not necessarily triggered by arriving messages**.
 
+Also you can set the `msg.reset` property to clear measured frequency.
+
 Therefore:
 
 **You must not wire this node inline with your flows,** as its not
