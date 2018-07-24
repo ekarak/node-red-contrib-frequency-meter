@@ -34,9 +34,14 @@ module.exports = function(RED) {
 		var ee = new EventEmitter();
 
 		// happened
-		ee.happened = function happened() {
-			events.push(now());
-			//console.log("happened, events.length=="+events.length);
+		ee.happened = function happened(msg) {
+			if (msg.hasOwnProperty("reset")) {
+				events = [];
+				ee.emit('frequency', 0);
+			} else {
+				events.push(now());
+				//console.log("happened, events.length=="+events.length);
+			}
 		};
 
 		/// end
@@ -104,7 +109,7 @@ module.exports = function(RED) {
 		});
 		// Yes its true: an incoming message just happened()
 		this.on("input", function(msg) {
-			this.fm.happened();
+			this.fm.happened(msg);
 		});
 		this.on("close", function() {
 			this.fm.end();
